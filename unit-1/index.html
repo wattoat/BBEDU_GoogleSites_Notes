@@ -1,1 +1,1370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MM1 · Algebra & Functions — TMUA/ESAT Notes</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/contrib/auto-render.min.js"></script>
 
+<style>
+/* ── RESET & BASE ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #1c1c1e;
+  background: #f2f2f7;
+}
+
+/* ── HEADER ── */
+.site-header {
+  background: #1a1208;
+  color: #faf7f0;
+  padding: 3rem 2rem 2.5rem;
+  position: relative;
+  overflow: hidden;
+}
+.site-header::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(212,168,67,.04) 30px, rgba(212,168,67,.04) 31px);
+}
+.header-inner { max-width: 900px; margin: 0 auto; position: relative; z-index: 1; }
+.header-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .68rem; letter-spacing: .22em; text-transform: uppercase;
+  color: #d4a843; margin-bottom: .6rem;
+}
+.header-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.9rem, 5vw, 3rem);
+  font-weight: 700; line-height: 1.15; color: #fff; margin-bottom: .5rem;
+}
+.header-title em { font-style: italic; color: #d4a843; }
+.header-rule { display: block; width: 56px; height: 3px; background: #b8860b; margin: 1rem 0; }
+.header-sub { font-size: .9rem; font-weight: 400; color: rgba(250,247,240,.65); max-width: 500px; line-height: 1.6; }
+
+
+/* ── CONTENT ── */
+.content-wrap { max-width: 900px; margin: 0 auto; padding: 2.5rem 1.5rem 5rem; }
+
+/* ── SECTION ── */
+.section { margin-bottom: 3.5rem; }
+.section-badge {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .62rem; letter-spacing: .18em; text-transform: uppercase;
+  background: #1a1208; color: #d4a843;
+  padding: .22rem .65rem; border-radius: 3px; margin-bottom: .6rem;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.4rem, 3vw, 1.9rem);
+  font-weight: 600; color: #1a1208; line-height: 1.25; margin-bottom: .35rem;
+}
+.section-rule { display: block; height: 2px; background: linear-gradient(to right, #b8860b, transparent); margin-bottom: 1.4rem; }
+.subsection { margin-top: 2.2rem; margin-bottom: .9rem; }
+.subsection-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.08rem; font-weight: 600; color: #8b3a1a;
+  margin-bottom: .5rem; padding-bottom: .28rem; border-bottom: 1px solid #d4c9a8;
+}
+p { margin-bottom: .9rem; } p:last-child { margin-bottom: 0; }
+
+/* ── NOTE / RULE BOXES ── */
+.rule-box {
+  background: #e8f4f3; border-left: 4px solid #1a5c5a;
+  border-radius: 0 6px 6px 0; padding: 1.1rem 1.4rem; margin: 1.3rem 0;
+}
+.rule-box-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .65rem; letter-spacing: .15em; text-transform: uppercase;
+  color: #1a5c5a; margin-bottom: .45rem; font-weight: 600;
+}
+.highlight-box { background: #fffbe6; border: 1px solid #e6c84a; border-radius: 6px; padding: .9rem 1.3rem; margin: 1.3rem 0; }
+.highlight-box p { margin-bottom: 0; }
+.caution { background: #fdf0e8; border-left: 4px solid #c0622a; border-radius: 0 6px 6px 0; padding: .9rem 1.3rem; margin: 1.3rem 0; }
+.caution-label { font-family: 'JetBrains Mono', monospace; font-size: .63rem; letter-spacing: .15em; text-transform: uppercase; color: #c0622a; margin-bottom: .35rem; font-weight: 700; }
+.caution p { color: #5a2010; margin-bottom: 0; }
+
+/* ── EXAMPLE BOX ── */
+.example-box { background: #fff; border: 1.5px solid #2e8b80; border-radius: 8px; overflow: hidden; margin: 1.4rem 0; }
+.example-header { background: #1a5c5a; color: #fff; padding: .45rem 1.1rem; font-family: 'JetBrains Mono', monospace; font-size: .67rem; letter-spacing: .14em; text-transform: uppercase; }
+.example-body { padding: 1.1rem 1.4rem; }
+.example-body p { margin-bottom: .55rem; }
+
+/* ── MATH DISPLAY (inside notes/examples) ── */
+.math-block {
+  background: #f0ece2; border: 1px solid #d4c9a8;
+  border-radius: 6px; padding: .9rem 1.3rem;
+  margin: .9rem 0; overflow-x: auto; line-height: 1.9;
+}
+code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .86em; background: #ede8d8;
+  padding: .08em .32em; border-radius: 3px; color: #8b3a1a;
+}
+
+/* ── TABLES ── */
+.rules-table { width: 100%; border-collapse: separate; border-spacing: 0; margin: 1.3rem 0; font-size: .9rem; }
+.rules-table thead tr { background: #1a1208; color: #faf7f0; }
+.rules-table thead th { padding: .65rem .9rem; text-align: left; font-size: .64rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 600; }
+.rules-table tbody tr:nth-child(odd) { background: #f3edd8; }
+.rules-table tbody tr:nth-child(even) { background: #fff; }
+.rules-table tbody td { padding: .65rem .9rem; border-bottom: 1px solid #d4c9a8; }
+.rules-table tbody td:first-child { font-family: 'JetBrains Mono', monospace; font-weight: 600; color: #8b3a1a; white-space: nowrap; width: 80px; font-size: .82rem; }
+.disc-table { width: 100%; border-collapse: collapse; margin: 1.1rem 0; font-size: .9rem; }
+.disc-table th { background: #1a5c5a; color: #fff; padding: .55rem .9rem; text-align: left; font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 600; }
+.disc-table td { padding: .65rem .9rem; border: 1px solid #d4c9a8; }
+.disc-table tr:nth-child(odd) td { background: #f8f5ee; }
+.disc-table tr:nth-child(even) td { background: #fff; }
+.disc-table td:first-child { font-family: 'JetBrains Mono', monospace; font-weight: 600; color: #1a5c5a; font-size: .86rem; }
+
+/* ── SECTION DIVIDER ── */
+.section-divider { display: flex; align-items: center; gap: 1rem; margin: 2.5rem 0; }
+.section-divider::before, .section-divider::after { content: ''; flex: 1; height: 1px; background: #d4c9a8; }
+.divider-ornament { color: #b8860b; font-size: 1.1rem; }
+
+/* ── LAYOUTS ── */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0; }
+.steps { counter-reset: step; padding-left: 0; list-style: none; margin: 1rem 0; }
+.steps li { counter-increment: step; display: flex; gap: .9rem; margin-bottom: .75rem; align-items: flex-start; }
+.steps li::before { content: counter(step); flex-shrink: 0; width: 1.55rem; height: 1.55rem; background: #1a5c5a; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: .68rem; font-weight: 600; margin-top: .18rem; }
+.note-list { padding-left: 1.3rem; margin: .75rem 0; }
+.note-list li { margin-bottom: .45rem; }
+@media(max-width:600px){ .two-col{grid-template-columns:1fr;} }
+
+/* ══════════════════════════════════════
+   PRACTICE BLOCK — matches reference image
+═══════════════════════════════════════ */
+.practice-block {
+  background: #fff;
+  border: 1px solid #d1d1d6;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 2.2rem 0;
+  box-shadow: 0 1px 4px rgba(0,0,0,.06);
+}
+.practice-header {
+  background: #f2f2f7;
+  border-bottom: 1px solid #d1d1d6;
+  padding: .65rem 1.3rem;
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+}
+.practice-tag {
+  background: #1a1208;
+  color: #fff;
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: .22rem .65rem;
+  border-radius: 4px;
+}
+.practice-title {
+  font-size: .88rem;
+  font-weight: 600;
+  color: #1c1c1e;
+}
+
+/* ── QUESTION ITEM ── */
+.q-item {
+  border-bottom: 1px solid #e5e5ea;
+  padding: 1.1rem 1.3rem;
+}
+.q-item:last-child { border-bottom: none; }
+
+.q-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+.q-num {
+  flex-shrink: 0;
+  width: 1.7rem; height: 1.7rem;
+  background: #f2f2f7;
+  border: 1px solid #d1d1d6;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .72rem; font-weight: 700;
+  color: #48484a;
+  margin-top: .12rem;
+}
+.q-body { flex: 1; min-width: 0; }
+
+/* question text line */
+.q-text-row {
+  display: flex;
+  align-items: flex-start;
+  gap: .65rem;
+  flex-wrap: wrap;
+  margin-bottom: .75rem;
+  font-size: .95rem;
+  line-height: 1.65;
+}
+.q-text-main { flex: 1; min-width: 200px; }
+
+/* ── DIFFICULTY BADGES ── */
+.badge {
+  display: inline-block;
+  font-size: .62rem; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase;
+  padding: .16rem .52rem; border-radius: 20px;
+  flex-shrink: 0; margin-top: .18rem;
+  font-family: 'Inter', sans-serif;
+}
+.badge-easy   { background: #e6f4ea; color: #1e7e34; border: 1px solid #a8d5b0; }
+.badge-medium { background: #fff4e0; color: #b45309; border: 1px solid #f0c97a; }
+.badge-hard   { background: #fde8e8; color: #c0392b; border: 1px solid #f5a5a0; }
+
+/* ── TOGGLE BUTTON — exactly like reference ── */
+.toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  background: #fff;
+  color: #2c6fad;
+  border: 1.5px solid #2c6fad;
+  border-radius: 6px;
+  padding: .36rem .85rem;
+  font-family: 'Inter', sans-serif;
+  font-size: .82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .14s, color .14s, box-shadow .14s;
+  user-select: none;
+  line-height: 1;
+}
+.toggle-btn:hover {
+  background: #2c6fad;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(44,111,173,.22);
+}
+.toggle-btn.open {
+  background: #2c6fad;
+  color: #fff;
+}
+.btn-arrow {
+  font-size: .58rem;
+  transition: transform .18s;
+  display: inline-block;
+}
+.toggle-btn.open .btn-arrow { transform: rotate(90deg); }
+
+/* ── SOLUTION PANEL — green left border like reference ── */
+.solution-panel {
+  display: none;
+  margin-top: .85rem;
+  background: #f0faf4;
+  border: 1px solid #b2dfca;
+  border-left: 4px solid #27ae60;
+  border-radius: 0 7px 7px 0;
+  overflow: hidden;
+}
+.solution-panel.visible { display: block; }
+
+.sol-label {
+  background: transparent;
+  padding: .45rem .95rem .15rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .62rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #27ae60;
+}
+.sol-body {
+  padding: .3rem .95rem .95rem;
+  color: #1c3a28;
+  font-size: .93rem;
+  line-height: 1.75;
+}
+.sol-body p { color: #1c3a28; margin-bottom: .45rem; }
+.sol-body p:last-child { margin-bottom: 0; }
+
+/* Math lines inside solution — inline block, single line each */
+.sol-steps {
+  background: rgba(39,174,96,.07);
+  border-radius: 5px;
+  padding: .55rem .85rem;
+  margin: .5rem 0;
+  border-left: 3px solid #27ae60;
+}
+.sol-line {
+  display: block;
+  line-height: 2.1;
+  font-size: .91rem;
+  color: #1c3a28;
+}
+
+/* Final answer highlight */
+.sol-answer {
+  display: inline-block;
+  background: rgba(39,174,96,.13);
+  border-radius: 5px;
+  padding: .3rem .75rem;
+  margin-top: .55rem;
+  font-weight: 700;
+  color: #0d5c2a;
+  font-size: .94rem;
+}
+strong.answer-label { color: #0d5c2a; }
+
+/* ── FOOTER ── */
+.site-footer { text-align: center; padding: 2rem; font-size: .75rem; color: #8e8e93; border-top: 1px solid #d4c9a8; font-family: 'JetBrains Mono', monospace; letter-spacing: .05em; }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp { from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);} }
+.section { animation: fadeUp .45s ease both; }
+.section:nth-child(1){animation-delay:.04s} .section:nth-child(2){animation-delay:.08s}
+.section:nth-child(3){animation-delay:.12s} .section:nth-child(4){animation-delay:.16s}
+.section:nth-child(5){animation-delay:.2s}  .section:nth-child(6){animation-delay:.24s}
+.section:nth-child(7){animation-delay:.28s}
+
+/* KaTeX display fix — prevent overflow */
+.katex-display { overflow-x: auto; overflow-y: hidden; padding: .2rem 0; }
+.katex { font-size: 1em !important; }
+sup { font-size: .7em; color: #8e8e93; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-tag">TMUA · ESAT · A-Level Preparation</div>
+    <h1 class="header-title">MM1 · <em>Algebra &amp; Functions</em></h1>
+    <span class="header-rule"></span>
+    <p class="header-sub">Comprehensive revision notes covering indices, surds, quadratics, simultaneous equations, inequalities, polynomials, and functions — with worked examples and practice questions.</p>
+  </div>
+</header>
+
+<main class="content-wrap">
+
+<!-- ══════════════════ MM1.1 INDICES ══════════════════ -->
+<section class="section" id="s1">
+  <div class="section-badge">MM1.1</div>
+  <h2 class="section-title">Laws of Indices</h2>
+  <span class="section-rule"></span>
+
+  <p>Indices give us a compact notation for repeated multiplication. The core idea: \(a^m\) means \(a\) multiplied by itself \(m\) times.</p>
+
+  <div class="highlight-box">
+    <p><strong>Key principle:</strong> All rules follow logically from the basic definition. Understanding the derivation lets you reconstruct them under exam pressure.</p>
+  </div>
+
+  <div class="subsection"><h3 class="subsection-title">The Seven Rules</h3></div>
+  <table class="rules-table">
+    <thead><tr><th>Rule</th><th>Formula</th><th>Derivation / Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Rule 1</td><td>\(a^m \times a^n = a^{m+n}\)</td><td>\(m\) copies then \(n\) copies gives \(m+n\) copies</td></tr>
+      <tr><td>Rule 2</td><td>\(a^{1/n} = \sqrt[n]{a}\)</td><td>Multiplying \(n\) times: \((a^{1/n})^n = a^1 = a\), so it is the \(n\)th root</td></tr>
+      <tr><td>Rule 3</td><td>\(a^{-m} = \dfrac{1}{a^m}\)</td><td>\(a^3 \times a^{-2} = a^1\), so \(a^{-2} = 1/a^2\)</td></tr>
+      <tr><td>Rule 4</td><td>\(a^0 = 1\)</td><td>\(a^2 \times a^{-2} = a^0\) and \(a^2/a^2 = 1\), so \(a^0 = 1\)</td></tr>
+      <tr><td>Rule 5</td><td>\(a^m \div a^n = a^{m-n}\)</td><td>Combine Rules 1 &amp; 3: \(a^m \times a^{-n} = a^{m-n}\)</td></tr>
+      <tr><td>Rule 6</td><td>\((a^m)^n = a^{mn}\)</td><td>\(n\) copies of \(a^m\) → exponent \(m+m+\cdots+m = mn\)</td></tr>
+      <tr><td>Rule 7</td><td>\(a^{m/n} = \sqrt[n]{a^m} = \!\left(\sqrt[n]{a}\right)^m\)</td><td>Combine Rules 2 &amp; 6</td></tr>
+    </tbody>
+  </table>
+
+  <div class="caution">
+    <div class="caution-label">⚠ Critical Distinction</div>
+    <p>Do <strong>not</strong> confuse \((a^3)^2 = a^6\) with \(a^{3^2} = a^9\). They look similar but mean completely different things.</p>
+  </div>
+
+  <div class="rule-box">
+    <div class="rule-box-title">Validity Conditions</div>
+    <p>All rules require \(a > 0\) for full generality. Negative bases cause problems: \((-64)^{1/2}\) is not real, but \((-64)^{1/3} = -4\). When \(a = 0\): \(0^m = 0\) for \(m > 0\), but \(0^0\) is undefined.</p>
+  </div>
+
+  <div class="subsection"><h3 class="subsection-title">Worked Examples</h3></div>
+
+  <div class="example-box">
+    <div class="example-header">Example A — Solve using index laws</div>
+    <div class="example-body">
+      <p>Solve \(\dfrac{27^a}{3^{a-1}} = 3\sqrt{3}\)</p>
+      <div class="math-block">
+        \(27^a = (3^3)^a = 3^{3a}\)<br>
+        \(\dfrac{3^{3a}}{3^{a-1}} = 3^{3a-(a-1)} = 3^{2a+1}\)<br>
+        \(3\sqrt{3} = 3^{3/2} \;\Rightarrow\; 2a+1 = \tfrac{3}{2} \;\Rightarrow\; \boxed{a = \tfrac{1}{4}}\)
+      </div>
+    </div>
+  </div>
+
+  <div class="example-box">
+    <div class="example-header">Example B — Substitution approach</div>
+    <div class="example-body">
+      <p>Solve \(4^x - 2^{x+2} = 32\)</p>
+      <div class="math-block">
+        Let \(u = 2^x\). Then \(4^x = u^2\) and \(2^{x+2} = 4u\).<br>
+        \(u^2 - 4u - 32 = 0 \;\Rightarrow\; (u-8)(u+4) = 0\)<br>
+        \(u = 8 \Rightarrow 2^x = 8 \Rightarrow \boxed{x = 3}\) &nbsp;&nbsp;(reject \(u = -4\))
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PRACTICE MM1.1 ── -->
+  <div class="practice-block">
+    <div class="practice-header">
+      <span class="practice-tag">Practice</span>
+      <span class="practice-title">Laws of Indices Questions</span>
+    </div>
+
+    <div class="q-item">
+      <div class="q-row">
+        <div class="q-num">1</div>
+        <div class="q-body">
+          <div class="q-text-row">
+            <div class="q-text-main">Solve the equation &nbsp;\(2^{x+2} = 4\sqrt{2}\)</div>
+            <span class="badge badge-easy">Easy</span>
+          </div>
+          <button class="toggle-btn" onclick="tog(this)"><span class="btn-arrow">▶</span> Show Answer</button>
+          <div class="solution-panel">
+            <div class="sol-label">Solution</div>
+            <div class="sol-body">
+              <p>Write both sides as powers of 2:</p>
+              <div class="sol-steps">
+                <span class="sol-line">\(4\sqrt{2} = 2^2 \cdot 2^{1/2} = 2^{5/2}\)</span>
+                <span class="sol-line">\(2^{x+2} = 2^{5/2} \;\Rightarrow\; x + 2 = \dfrac{5}{2}\)</span>
+              </div>
+              <div class="sol-answer">Answer: \(x = \dfrac{1}{2}\)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-row">
+        <div class="q-num">2</div>
+        <div class="q-body">
+          <div class="q-text-row">
+            <div class="q-text-main">Solve \(4^x - 2^{x+2} = 32\)</div>
+            <span class="badge badge-easy">Easy</span>
+          </div>
+          <button class="toggle-btn" onclick="tog(this)"><span class="btn-arrow">▶</span> Show Answer</button>
+          <div class="solution-panel">
+            <div class="sol-label">Solution</div>
+            <div class="sol-body">
+              <p>Let \(u = 2^x\), so \(4^x = u^2\) and \(2^{x+2} = 4u\):</p>
+              <div class="sol-steps">
+                <span class="sol-line">\(u^2 - 4u - 32 = 0 \;\Rightarrow\; (u - 8)(u + 4) = 0\)</span>
+                <span class="sol-line">\(u = 8 \Rightarrow 2^x = 8\) &ensp; (reject \(u = -4\), no real solution)</span>
+              </div>
+              <div class="sol-answer">Answer: \(x = 3\)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-row">
+        <div class="q-num">3</div>
+        <div class="q-body">
+          <div class="q-text-row">
+            <div class="q-text-main">How many real solutions does \(8^x + 4 = 4^x + 2^{x+2}\) have?</div>
+            <span class="badge badge-medium">Medium</span>
+          </div>
+          <button class="toggle-btn" onclick="tog(this)"><span class="btn-arrow">▶</span> Show Answer</button>
+          <div class="solution-panel">
+            <div class="sol-label">Solution</div>
+            <div class="sol-body">
+              <p>Let \(u = 2^x\). Rearranging gives \(u^3 - u^2 - 4u + 4 = 0\):</p>
+              <div class="sol-steps">
+                <span class="sol-line">\((u^2 - 4)(u - 1) = 0 \;\Rightarrow\; u = 1,\; 2,\; -2\)</span>
+                <span class="sol-line">\(2^x = 1 \Rightarrow x=0\); &ensp; \(2^x = 2 \Rightarrow x=1\); &ensp; \(2^x = -2\) — no real solution</span>
+              </div>
+              <div class="sol-answer">Answer: 2 real solutions &nbsp;(\(x = 0\) and \(x = 1\))</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-row">
+        <div class="q-num">4</div>
+        <div class="q-body">
+          <div class="q-text-row">
+            <div class="q-text-main">Find the values of \(k\) such that \(9^x - 3^{x+1} = k\) has one or more real solutions.</div>
+            <span class="badge badge-medium">Medium</span>
+          </div>
+          <button class="toggle-btn" onclick="tog(this)"><span class="btn-arrow">▶</span> Show Answer</button>
+          <div class="solution-panel">
+            <div class="sol-label">Solution</div>
+            <div class="sol-body">
+              <p>Let \(t = 3^x > 0\). The equation becomes \(t^2 - 3t - k = 0\), a quadratic in \(t\).</p>
+              <p>For a real positive solution, the discriminant must be \(\geq 0\):</p>
+              <div class="sol-steps">
+                <span class="sol-line">\(9 + 4k \geq 0 \;\Rightarrow\; k \geq -\tfrac{9}{4}\)</span>
+              </div>
+              <div class="sol-answer">Answer: \(k \geq -\dfrac{9}{4}\)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-row">
+        <div class="q-num">5</div>
+        <div class="q-body">
+          <div class="q-text-row">
+            <div class="q-text-main">Solve \(\dfrac{27^a}{3^{a-1}} = 3\sqrt{3}\)</div>
+            <span class="badge badge-easy">Easy</span>
+          </div>
+          <button class="toggle-btn" onclick="tog(this)"><span class="btn-arrow">▶</span> Show Answer</button>
+          <div class="solution-panel">
+            <div class="sol-label">Solution</div>
+            <div class="sol-body">
+              <div class="sol-steps">
+                <span class="sol-line">\(27^a = 3^{3a},\quad 3\sqrt{3} = 3^{3/2}\)</span>
+                <span class="sol-line">\(\dfrac{3^{3a}}{3^{a-1}} = 3^{2a+1} = 3^{3/2}\)</span>
+                <span class="sol-line">\(2a + 1 = \tfrac{3}{2} \;\Rightarrow\; 2a = \tfrac{1}{2}\)</span>
+              </div>
+              <div class="sol-answer">Answer: \(a = \dfrac{1}{4}\)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end practice-block -->
+</section>
+
+<div class="section-divider"><span class="divider-ornament">✦</span></div>
+
+<!-- ══════════════════ MM1.2 SURDS ══════════════════ -->
+<section class="section" id="s2">
+  <div class="section-badge">MM1.2</div>
+  <h2 class="section-title">Surds</h2>
+  <span class="section-rule"></span>
+
+  <p>A <strong>surd</strong> is an expression containing a root that cannot be simplified to a rational number. Surds let us express irrational numbers <em>exactly</em>.</p>
+
+  <div class="rule-box">
+    <div class="rule-box-title">Convention</div>
+    <p>\(\sqrt{a}\) always denotes the <strong>positive</strong> square root. So \(\sqrt{64} = 8\), not \(-8\). Write \(\pm\sqrt{64}\) if both signs are needed.</p>
+  </div>
+
+  <div class="subsection"><h3 class="subsection-title">1 · Simplifying Roots</h3></div>
+  <p>Factor out the largest perfect square from under the root sign:</p>
+  <div class="math-block">
+    \(\sqrt{50} = \sqrt{25 \times 2} = 5\sqrt{2}\)<br>
+    \(\sqrt{40} = \sqrt{4 \times 10} = 2\sqrt{10}\)<br>
+    \(\sqrt{72} = \sqrt{36 \times 2} = 6\sqrt{2}\)
+  </div>
+
+  <div class="subsection"><h3 class="subsection-title">2 · Multiplying Surd Expressions</h3></div>
+  <p>Treat \(\sqrt{5}\) like a variable \(x\), expand normally, then use \(\sqrt{5}\times\sqrt{5}=5\) at the end:</p>
+  <div class="example-box">
+    <div class="example-header">Example — Expand and Simplify</div>
+    <div class="example-body">
+      <div class="math-block">
+        \((2 + 3\sqrt{5})^2 = 4 + 2 \cdot 2 \cdot 3\sqrt{5} + 9 \cdot 5 = 4 + 12\sqrt{5} + 45 = 49 + 12\sqrt{5}\)
+      </div>
+    </div>
+  </div>
+
+  <div class="subsection"><h3 class="subsection-title">3 · Rationalising the Denominator</h3></div>
+  <div class="two-col">
+    <div class="rule-box">
+      <div class="rule-box-title">Simple: \(1/\sqrt{a}\)</div>
+      <p>\(\dfrac{1}{\sqrt{a}} \times \dfrac{\sqrt{a}}{\sqrt{a}} = \dfrac{\sqrt{a}}{a}\)</p>
+    </div>
+    <div class="rule-box">
+      <div class="rule-box-title">Conjugate: \((a+b)(a-b)=a^2-b^2\)</div>
+      <p>\(\dfrac{3}{2+\sqrt{5}} \times \dfrac{\sqrt{5}-2}{\sqrt{5}-2} = \dfrac{3\sqrt{5}-6}{5-4} = 3\sqrt{5}-6\)</p>
+    </div>
+  </div>
+
+  <div class="caution">
+    <div class="caution-label">⚠ Common Mistake</div>
+    <p>Never write \(\sqrt{5} \times \sqrt{5} = 25\). Always: \(\sqrt{5} \times \sqrt{5} = 5\).</p>
+  </div>
+
+  <!-- ── PRACTICE MM1.2 ── -->
+  <div class="practice-block">
+    <div class="practice-header">
+      <span class="practice-tag">Practice</span>
+      <span class="practice-title">Surds Questions</span>
+    </div>
+
+    <div class="q-item">
+      <div class="q-row">
+        <div class="q-num">1</div>
+        <div class="q-body">
+          <div class="q-text-row">
+            <div class="q-text-main">Simplify \(\dfrac{(2\sqrt{3}-1)(2+\sqrt{3})}{(2-\sqrt{3})(2+\sqrt{3})}\) in the form \(a + b\sqrt{3}\).</div>
+            <span class="badge badge-easy">Easy</span>
+          </div>
+          <button class="toggle-btn" onclick="tog(this)"><span class="btn-arrow">▶</span> Show Answer</button>
+          <div class="solution-panel">
+            <div class="sol-label">Solution</div>
+            <div class="sol-body">
+              <div class="sol-steps">
+                <span class="sol-line">Denominator: \((2-\sqrt{3})(2+\sqrt{3}) = 4 - 3 = 1\)</span>
+                <span class="sol-line">Numerator: \((2\sqrt{3}-1)(2+\sqrt{3}) = 4\sqrt{3} + 6 - 2 - \sqrt{3} = 4 + 3\sqrt{3}\)</span>
+              </div>
+              <div class="sol-answer">Answer: \(4 + 3\sqrt{3}\)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-row">
+        <div class="q-num">2</div>
+        <div class="q-body">
+          <div class="q-text-row">
+            <div class="q-text-main">The area of a triangle is \((3 + \sqrt{3})\) cm². The base is \(\sqrt{3}\) cm. Find the height as a surd.</div>
+            <span class="badge badge-medium">Medium</span>
+          </div>
+          <button class="toggle-btn" onclick="tog(this)"><span class="btn-arrow">▶</span> Show Answer</button>
+          <div class="solution-panel">
+            <div class="sol-label">Solution</div>
+            <div class="sol-body">
+              <div class="sol-steps">
+                <span class="sol-line">\(\tfrac{1}{2}\sqrt{3} \cdot h = 3 + \sqrt{3} \;\Rightarrow\; h = \dfrac{2(3+\sqrt{3})}{\sqrt{3}}\)</span>
+                <span class="sol-line">\(= \dfrac{(6 + 2\sqrt{3})\sqrt{3}}{3} = \dfrac{6\sqrt{3} + 6}{3} = 2\sqrt{3} + 2\)</span>
+              </div>
+              <div class="sol-answer">Answer: \(h = 2\sqrt{3} + 2\)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-row">
+        <div class="q-num">3</div>
+        <div class="q-body">
+          <div class="q-text-row">
+            <div class="q-text-main">What positive integer does \(\dfrac{1+\sqrt{7}}{3-\sqrt{7}} - \dfrac{8-\sqrt{7}}{\sqrt{7}-2}\) simplify to?</div>
+            <span class="badge badge-medium">Medium</span>
+          </div>
+          <button class="toggle-btn" onclick="tog(this)"><span class="btn-arrow">▶</span> Show Answer</button>
+          <div class="solution-panel">
+            <div class="sol-label">Solution</div>
+            <div class="sol-body">
+              <p>Rationalise each fraction using the conjugate, then combine:</p>
+              <div class="sol-steps">
+                <span class="sol-line">\(\dfrac{(1+\sqrt{7})(\sqrt{7}-2) - (8-\sqrt{7})(3-\sqrt{7})}{(3-\sqrt{7})(\sqrt{7}-2)}\)</span>
+                <span class="sol-line">Numerator \(= 10\sqrt{7} - 26\), &ensp; Denominator \(= 5\sqrt{7}-13 = \sqrt{7}(5\sqrt{7}-13)\cdot\tfrac{1}{\sqrt{7}}\)</span>
+                <span class="sol-line">\(\dfrac{10\sqrt{7}-26}{5\sqrt{7}-13} = \dfrac{2(5\sqrt{7}-13)}{5\sqrt{7}-13} = 2\)</span>
+              </div>
+              <div class="sol-answer">Answer: \(2\)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-row">
+        <div class="q-num">4</div>
+        <div class="q-body">
+          <div class="q-text-row">
+            <div class="q-text-main">Write \(\dfrac{1}{x-\sqrt{y}} + \dfrac{1}{x+\sqrt{y}}\) as a single fraction in simplest form.</div>
+            <span class="badge badge-easy">Easy</span>
+          </div>
+          <button class="toggle-btn" onclick="tog(this)"><span class="btn-arrow">▶</span> Show Answer</button>
+          <div class="solution-panel">
+            <div class="sol-label">Solution</div>
+            <div class="sol-body">
+              <div class="sol-steps">
+                <span class="sol-line">\(\dfrac{(x+\sqrt{y}) + (x-\sqrt{y})}{(x-\sqrt{y})(x+\sqrt{y})} = \dfrac{2x}{x^2 - y}\)</span>
+              </div>
+              <div class="sol-answer">Answer: \(\dfrac{2x}{x^2 - y}\)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-row">
+        <div class="q-num">5</div>
+        <div class="q-body">
+          <div class="q-text-row">
+            <div class="q-text-main">What is \(\sqrt{49 - 12\sqrt{5}}\)? &nbsp; (The answer is <em>not</em> \(2 - 3\sqrt{5}\).</div>
+            <span class="badge badge-hard">Hard</span>
+          </div>
+          <button class="toggle-btn" onclick="tog(this)"><span class="btn-arrow">▶</span> Show Answer</button>
+          <div class="solution-panel">
+            <div class="sol-label">Solution</div>
+            <div class="sol-body">
+              <p>Try \((a - b\sqrt{5})^2 = a^2 + 5b^2 - 2ab\sqrt{5}\). Need \(2ab = 12\) and \(a^2 + 5b^2 = 49\).</p>
+              <div class="sol-steps">
+                <span class="sol-line">\(ab = 6\); &ensp; try \(a=2, b=3\): \(4 + 45 = 49\) ✓</span>
+                <span class="sol-line">So \(49 - 12\sqrt{5} = (2 - 3\sqrt{5})^2\) — but \(2 - 3\sqrt{5} < 0\)!</span>
+                <span class="sol-line">Since \(\sqrt{\cdot}\) is always positive: \(\sqrt{49-12\sqrt{5}} = |2-3\sqrt{5}| = 3\sqrt{5}-2\)</span>
+              </div>
+              <div class="sol-answer">Answer: \(3\sqrt{5} - 2\)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="section-divider"><span class="divider-ornament">✦</span></div>
+
+<!-- ══════════════════ MM1.3 QUADRATICS ══════════════════ -->
+<section class="section" id="s3">
+  <div class="section-badge">MM1.3</div>
+  <h2 class="section-title">Quadratic Functions &amp; the Discriminant</h2>
+  <span class="section-rule"></span>
+
+  <p>A quadratic has the form \(ax^2 + bx + c\) where \(a \neq 0\). Mastery of all aspects below is essential.</p>
+
+  <div class="subsection"><h3 class="subsection-title">Completing the Square</h3></div>
+  <div class="rule-box">
+    <div class="rule-box-title">General Form (\(a = 1\))</div>
+    <p>\[x^2 + bx + c = \left(x + \frac{b}{2}\right)^2 - \frac{b^2}{4} + c\]</p>
+    <p>The graph is \(y = x^2\) shifted left by \(b/2\) and up by \(c - b^2/4\). Minimum at \(\!\left(-\tfrac{b}{2},\; c - \tfrac{b^2}{4}\right)\).</p>
+  </div>
+  <div class="rule-box">
+    <div class="rule-box-title">General Form (any \(a\))</div>
+    <p>\[ax^2 + bx + c = a\!\left(x + \frac{b}{2a}\right)^2 - \frac{b^2 - 4ac}{4a}\]</p>
+  </div>
+
+  <div class="subsection"><h3 class="subsection-title">The Quadratic Formula</h3></div>
+  <div class="math-block">
+    \[x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}\]
+  </div>
+  <p>The axis of symmetry is \(x = -b/2a\). Both roots lie at distance \(\dfrac{\sqrt{b^2-4ac}}{2|a|}\) from it.</p>
+
+  <div class="subsection"><h3 class="subsection-title">The Discriminant \(\Delta = b^2 - 4ac\)</h3></div>
+  <table class="disc-table">
+    <thead><tr><th>Condition</th><th>Roots</th><th>Graph behaviour</th></tr></thead>
+    <tbody>
+      <tr><td>\(\Delta > 0\)</td><td>Two distinct real roots</td><td>Parabola cuts \(x\)-axis at two points</td></tr>
+      <tr><td>\(\Delta = 0\)</td><td>One repeated root</td><td>Parabola touches \(x\)-axis at vertex</td></tr>
+      <tr><td>\(\Delta < 0\)</td><td>No real roots</td><td>Parabola entirely above/below \(x\)-axis</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ── PRACTICE MM1.3 ── -->
+  <div class="practice-block">
+    <div class="practice-header">
+      <span class="practice-tag">Practice</span>
+      <span class="practice-title">Quadratics Questions</span>
+    </div>
+
+    <div class="q-item">
+      <div class="q-row"><div class="q-num">1</div><div class="q-body">
+        <div class="q-text-row"><div class="q-text-main">\(x^2 + ax + b = 0\) has roots \(x = -2\) and \(x = 5\). Find \(a\) and \(b\).</div><span class="badge badge-easy">Easy</span></div>
+        <button class="toggle-btn" onclick="tog(this)"><span class="btn-arrow">▶</span> Show Answer</button>
+        <div class="solution-panel"><div class="sol-label">Solution</div><div class="sol-body">
+          <div class="sol-steps">
+            <span class="sol-line">\((x+2)(x-5) = x^2 - 3x - 10\)</span>
+            <span class="sol-line">Comparing: \(a = -3,\quad b = -10\)</span>
+          </div>
+          <div class="sol-answer">Answer: \(a = -3,\quad b = -10\)</div>
+        </div></div>
+      </div></div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-row"><div class="q-num">2</div><div class="q-body">
+        <div class="q-text-row"><div class="q-text-main">\(f(x)=ax^2+bx+c\) with \(f(-1)=f(5)=30\) and minimum value \(-6\). Solve \(f(x)=3\).</div><span class="badge badge-hard">Hard</span></div>
+        <button class="toggle-btn" onclick="tog(this)"><span class="btn-arrow">▶</span> Show Answer</button>
+        <div class="solution-panel"><div class="sol-label">Solution</div><div class="sol-body">
+          <p>By symmetry the vertex is at \(x = \tfrac{-1+5}{2} = 2\), so \(f(x) = k(x-2)^2 - 6\).</p>
+          <div class="sol-steps">
+            <span class="sol-line">Using \(f(5)=30\): \(9k-6=30 \Rightarrow k=4\)</span>
+            <span class="sol-line">\(f(x) = 4(x-2)^2 - 6 = 3 \;\Rightarrow\; (x-2)^2 = \tfrac{9}{4} \;\Rightarrow\; x-2 = \pm\tfrac{3}{2}\)</span>
+          </div>
+          <div class="sol-answer">Answer: \(x = \dfrac{1}{2}\) or \(x = \dfrac{7}{2}\)</div>
+        </div></div>
+      </div></div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-row"><div class="q-num">3</div><div class="q-body">
+        <div class="q-text-row"><div class="q-text-main">Solve \(x - \dfrac{14}{x} = 6\sqrt{2}\), giving answers in the form \(p\sqrt{2}\).</div><span class="badge badge-medium">Medium</span></div>
+        <button class="toggle-btn" onclick="tog(this)"><span class="btn-arrow">▶</span> Show Answer</button>
+        <div class="solution-panel"><div class="sol-label">Solution</div><div class="sol-body">
+          <div class="sol-steps">
+            <span class="sol-line">Multiply by \(x\): \(x^2 - 6\sqrt{2}\,x - 14 = 0\)</span>
+            <span class="sol-line">\(x = \dfrac{6\sqrt{2} \pm \sqrt{72 + 56}}{2} = \dfrac{6\sqrt{2} \pm \sqrt{128}}{2} = \dfrac{6\sqrt{2} \pm 8\sqrt{2}}{2}\)</span>
+          </div>
+          <div class="sol-answer">Answer: \(x = 7\sqrt{2}\) or \(x = -\sqrt{2}\)</div>
+        </div></div>
+      </div></div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-row"><div class="q-num">4</div><div class="q-body">
+        <div class="q-text-row"><div class="q-text-main">Given \(f(x)=x^2+10x+27\), find \(k\) such that \(f(x)-k\) touches the \(x\)-axis.</div><span class="badge badge-easy">Easy</span></div>
+        <button class="toggle-btn" onclick="tog(this)"><span class="btn-arrow">▶</span> Show Answer</button>
+        <div class="solution-panel"><div class="sol-label">Solution</div><div class="sol-body">
+          <div class="sol-steps">
+            <span class="sol-line">Complete the square: \(f(x) = (x+5)^2 + 2\), so minimum value \(= 2\)</span>
+            <span class="sol-line">\(f(x) - k\) touches \(x\)-axis when minimum \(= 0\): &ensp; \(2 - k = 0\)</span>
+          </div>
+          <div class="sol-answer">Answer: \(k = 2\)</div>
+        </div></div>
+      </div></div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-row"><div class="q-num">5</div><div class="q-body">
+        <div class="q-text-row"><div class="q-text-main">A quadratic passes through \((-2,0)\), \((4,0)\), and \((0,-20)\). Find its equation.</div><span class="badge badge-medium">Medium</span></div>
+        <button class="toggle-btn" onclick="tog(this)"><span class="btn-arrow">▶</span> Show Answer</button>
+        <div class="solution-panel"><div class="sol-label">Solution</div><div class="sol-body">
+          <div class="sol-steps">
+            <span class="sol-line">\(y = a(x+2)(x-4)\). At \((0,-20)\): \(-8a = -20 \Rightarrow a = \tfrac{5}{2}\)</span>
+          </div>
+          <div class="sol-answer">Answer: \(y = \dfrac{5}{2}x^2 - 5x - 20\)</div>
+        </div></div>
+      </div></div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-row"><div class="q-num">6</div><div class="q-body">
+        <div class="q-text-row"><div class="q-text-main">Find values of \(k\) so that \(y = k(2x^2+1)\) and \(y = x^2-2x\) touch each other.</div><span class="badge badge-hard">Hard</span></div>
+        <button class="toggle-btn" onclick="tog(this)"><span class="btn-arrow">▶</span> Show Answer</button>
+        <div class="solution-panel"><div class="sol-label">Solution</div><div class="sol-body">
+          <p>Set equal and collect: \(x^2(2k-1) + 2x + k = 0\). For tangency, \(\Delta = 0\):</p>
+          <div class="sol-steps">
+            <span class="sol-line">\(4 - 4k(2k-1) = 0 \;\Rightarrow\; 2k^2 - k - 1 = 0\)</span>
+            <span class="sol-line">\((2k+1)(k-1) = 0\)</span>
+          </div>
+          <div class="sol-answer">Answer: \(k = -\dfrac{1}{2}\) or \(k = 1\)</div>
+        </div></div>
+      </div></div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-row"><div class="q-num">7</div><div class="q-body">
+        <div class="q-text-row"><div class="q-text-main">\(f(n) = n^2 - 2kn + k + 12\) is a perfect square for all \(n \in \mathbb{N}\). Find possible values of \(k\).</div><span class="badge badge-hard">Hard</span></div>
+        <button class="toggle-btn" onclick="tog(this)"><span class="btn-arrow">▶</span> Show Answer</button>
+        <div class="solution-panel"><div class="sol-label">Solution</div><div class="sol-body">
+          <p>Complete the square: \(f(n) = (n-k)^2 - k^2 + k + 12\). For this to be a perfect square for all \(n\), the constant term must vanish:</p>
+          <div class="sol-steps">
+            <span class="sol-line">\(-k^2 + k + 12 = 0 \;\Rightarrow\; k^2 - k - 12 = 0\)</span>
+            <span class="sol-line">\((k-4)(k+3) = 0\)</span>
+          </div>
+          <div class="sol-answer">Answer: \(k = 4\) or \(k = -3\)</div>
+        </div></div>
+      </div></div>
+    </div>
+
+  </div>
+</section>
+
+<div class="section-divider"><span class="divider-ornament">✦</span></div>
+
+<!-- ══════════════════ MM1.4 SIMULTANEOUS ══════════════════ -->
+<section class="section" id="s4">
+  <div class="section-badge">MM1.4</div>
+  <h2 class="section-title">Simultaneous Equations</h2>
+  <span class="section-rule"></span>
+  <p>Solving simultaneously means finding values satisfying <em>both</em> equations. Geometrically: solutions are intersection points of graphs.</p>
+
+  <div class="subsection"><h3 class="subsection-title">Two Linear Equations — Three Cases</h3></div>
+  <table class="disc-table">
+    <thead><tr><th>Geometry</th><th>Solutions</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td>Parallel, distinct</td><td>None</td><td>\(y+2x=4\) and \(y+2x=8\)</td></tr>
+      <tr><td>Coincident (same line)</td><td>Infinitely many</td><td>\(y+2x=4\) and \(2y+4x=8\)</td></tr>
+      <tr><td>Non-parallel</td><td>Exactly 1</td><td>\(x+2y=5\) and \(2x+y=4\)</td></tr>
+    </tbody>
+  </table>
+
+  <div class="subsection"><h3 class="subsection-title">Linear + Quadratic</h3></div>
+  <table class="disc-table">
+    <thead><tr><th>\(\Delta\) of resulting quadratic</th><th>Geometric meaning</th></tr></thead>
+    <tbody>
+      <tr><td>\(\Delta > 0\)</td><td>Line crosses parabola — 2 intersections</td></tr>
+      <tr><td>\(\Delta = 0\)</td><td>Line is tangent — 1 (repeated) intersection</td></tr>
+      <tr><td>\(\Delta < 0\)</td><td>Line misses parabola — no real intersections</td></tr>
+    </tbody>
+  </table>
+
+  <div class="practice-block">
+    <div class="practice-header">
+      <span class="practice-tag">Practice</span>
+      <span class="practice-title">Simultaneous Equations Questions</span>
+    </div>
+
+    <div class="q-item">
+      <div class="q-row"><div class="q-num">1</div><div class="q-body">
+        <div class="q-text-row"><div class="q-text-main">Solve simultaneously: \(x + 2y = 5\) and \(2x + y = 4\).</div><span class="badge badge-easy">Easy</span></div>
+        <button class="toggle-btn" onclick="tog(this)"><span class="btn-arrow">▶</span> Show Answer</button>
+        <div class="solution-panel"><div class="sol-label">Solution</div><div class="sol-body">
+          <div class="sol-steps">
+            <span class="sol-line">From first equation: \(x = 5 - 2y\)</span>
+            <span class="sol-line">Substitute: \(2(5-2y) + y = 4 \;\Rightarrow\; 10 - 3y = 4 \;\Rightarrow\; y = 2\)</span>
+            <span class="sol-line">Then \(x = 5 - 4 = 1\)</span>
+          </div>
+          <div class="sol-answer">Answer: \(x = 1,\quad y = 2\)</div>
+        </div></div>
+      </div></div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-row"><div class="q-num">2</div><div class="q-body">
+        <div class="q-text-row"><div class="q-text-main">The straight line \(L\) passes through \((0,-1)\). The curve \(y = x^2+2x\) does not intersect \(L\). Find the range of possible gradients of \(L\).</div><span class="badge badge-hard">Hard</span></div>
+        <button class="toggle-btn" onclick="tog(this)"><span class="btn-arrow">▶</span> Show Answer</button>
+        <div class="solution-panel"><div class="sol-label">Solution</div><div class="sol-body">
+          <p>Line: \(y = mx - 1\). Set equal: \(x^2 + 2x = mx - 1 \;\Rightarrow\; x^2 + (2-m)x + 1 = 0\).</p>
+          <p>No intersections requires \(\Delta < 0\):</p>
+          <div class="sol-steps">
+            <span class="sol-line">\((2-m)^2 - 4 < 0 \;\Rightarrow\; m^2 - 4m < 0 \;\Rightarrow\; m(m-4) < 0\)</span>
+          </div>
+          <div class="sol-answer">Answer: \(0 < m < 4\)</div>
+        </div></div>
+      </div></div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-row"><div class="q-num">3</div><div class="q-body">
+        <div class="q-text-row"><div class="q-text-main">Find the range of \(k\) so that \(y = 4x^2-7x+11\) and \(y = 5x+k\) do not intersect.</div><span class="badge badge-medium">Medium</span></div>
+        <button class="toggle-btn" onclick="tog(this)"><span class="btn-arrow">▶</span> Show Answer</button>
+        <div class="solution-panel"><div class="sol-label">Solution</div><div class="sol-body">
+          <div class="sol-steps">
+            <span class="sol-line">Set equal: \(4x^2 - 12x + 11 - k = 0\). Need \(\Delta < 0\).</span>
+            <span class="sol-line">\(144 - 16(11-k) < 0 \;\Rightarrow\; -32 + 16k < 0 \;\Rightarrow\; k < 2\)</span>
+          </div>
+          <div class="sol-answer">Answer: \(k < 2\)</div>
+        </div></div>
+      </div></div>
+    </div>
+
+  </div>
+</section>
+
+<div class="section-divider"><span class="divider-ornament">✦</span></div>
+
+<!-- ══════════════════ MM1.5 INEQUALITIES ══════════════════ -->
+<section class="section" id="s5">
+  <div class="section-badge">MM1.5</div>
+  <h2 class="section-title">Inequalities</h2>
+  <span class="section-rule"></span>
+
+  <div class="caution">
+    <div class="caution-label">⚠ Golden Rules</div>
+    <p>You <strong>can</strong> add/subtract freely on both sides. <strong>Multiplying or dividing by a negative flips the inequality sign.</strong> Squaring both sides can introduce false solutions — always verify.</p>
+  </div>
+
+  <div class="rule-box">
+    <div class="rule-box-title">Modulus — Geometric Insight</div>
+    <p>\(|x - a|\) measures the <strong>distance</strong> of \(x\) from \(a\) on the number line. So \(|x-3| < |x-5|\) asks: "for which \(x\) is the distance to 3 less than to 5?" The midpoint of 3 and 5 is 4, so \(x < 4\).</p>
+  </div>
+
+  <div class="practice-block">
+    <div class="practice-header">
+      <span class="practice-tag">Practice</span>
+      <span class="practice-title">Inequalities Questions</span>
+    </div>
+
+    <div class="q-item">
+      <div class="q-row"><div class="q-num">1</div><div class="q-body">
+        <div class="q-text-row"><div class="q-text-main">Solve \(x^4 < 8x^2 + 9\).</div><span class="badge badge-medium">Medium</span></div>
+        <button class="toggle-btn" onclick="tog(this)"><span class="btn-arrow">▶</span> Show Answer</button>
+        <div class="solution-panel"><div class="sol-label">Solution</div><div class="sol-body">
+          <div class="sol-steps">
+            <span class="sol-line">\(x^4 - 8x^2 - 9 < 0 \;\Rightarrow\; (x^2 - 9)(x^2 + 1) < 0\)</span>
+            <span class="sol-line">Since \(x^2 + 1 > 0\) always, need \(x^2 - 9 < 0 \;\Rightarrow\; -3 < x < 3\)</span>
+          </div>
+          <div class="sol-answer">Answer: \(-3 < x < 3\)</div>
+        </div></div>
+      </div></div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-row"><div class="q-num">2</div><div class="q-body">
+        <div class="q-text-row"><div class="q-text-main">Solve the inequality \(12 - 2|2x - 3| > 7\).</div><span class="badge badge-easy">Easy</span></div>
+        <button class="toggle-btn" onclick="tog(this)"><span class="btn-arrow">▶</span> Show Answer</button>
+        <div class="solution-panel"><div class="sol-label">Solution</div><div class="sol-body">
+          <div class="sol-steps">
+            <span class="sol-line">\(2|2x-3| < 5 \;\Rightarrow\; |2x-3| < \tfrac{5}{2}\)</span>
+            <span class="sol-line">\(-\tfrac{5}{2} < 2x-3 < \tfrac{5}{2} \;\Rightarrow\; \tfrac{1}{4} < x < \tfrac{11}{4}\)</span>
+          </div>
+          <div class="sol-answer">Answer: \(\dfrac{1}{4} < x < \dfrac{11}{4}\)</div>
+        </div></div>
+      </div></div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-row"><div class="q-num">3</div><div class="q-body">
+        <div class="q-text-row"><div class="q-text-main">Solve the equation \(|3x + 2| = 1\).</div><span class="badge badge-easy">Easy</span></div>
+        <button class="toggle-btn" onclick="tog(this)"><span class="btn-arrow">▶</span> Show Answer</button>
+        <div class="solution-panel"><div class="sol-label">Solution</div><div class="sol-body">
+          <div class="sol-steps">
+            <span class="sol-line">Case 1: \(3x+2 = 1 \;\Rightarrow\; x = -\tfrac{1}{3}\)</span>
+            <span class="sol-line">Case 2: \(3x+2 = -1 \;\Rightarrow\; x = -1\)</span>
+          </div>
+          <div class="sol-answer">Answer: \(x = -\dfrac{1}{3}\) or \(x = -1\)</div>
+        </div></div>
+      </div></div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-row"><div class="q-num">4</div><div class="q-body">
+        <div class="q-text-row"><div class="q-text-main">Solve \(|x^2 - 2x - 4| = 4\).</div><span class="badge badge-medium">Medium</span></div>
+        <button class="toggle-btn" onclick="tog(this)"><span class="btn-arrow">▶</span> Show Answer</button>
+        <div class="solution-panel"><div class="sol-label">Solution</div><div class="sol-body">
+          <div class="sol-steps">
+            <span class="sol-line">Case 1: \(x^2-2x-4 = 4 \;\Rightarrow\; (x-4)(x+2)=0 \;\Rightarrow\; x=4,\,-2\)</span>
+            <span class="sol-line">Case 2: \(x^2-2x-4 = -4 \;\Rightarrow\; x(x-2)=0 \;\Rightarrow\; x=0,\,2\)</span>
+          </div>
+          <div class="sol-answer">Answer: \(x = -2,\;0,\;2,\;4\)</div>
+        </div></div>
+      </div></div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-row"><div class="q-num">5</div><div class="q-body">
+        <div class="q-text-row"><div class="q-text-main">Find the set of values for which \(|x^2 - 4| < 3x\).</div><span class="badge badge-hard">Hard</span></div>
+        <button class="toggle-btn" onclick="tog(this)"><span class="btn-arrow">▶</span> Show Answer</button>
+        <div class="solution-panel"><div class="sol-label">Solution</div><div class="sol-body">
+          <p>Note \(3x > 0\) is required, so \(x > 0\). Solve both cases:</p>
+          <div class="sol-steps">
+            <span class="sol-line">Case 1: \(x^2-4 = 3x \;\Rightarrow\; (x-4)(x+1)=0 \;\Rightarrow\; x=4\) (take \(x>0\))</span>
+            <span class="sol-line">Case 2: \(x^2-4 = -3x \;\Rightarrow\; (x+4)(x-1)=0 \;\Rightarrow\; x=1\) (take \(x>0\))</span>
+            <span class="sol-line">Sketch confirms inequality holds between: \(1 < x < 4\)</span>
+          </div>
+          <div class="sol-answer">Answer: \(1 < x < 4\)</div>
+        </div></div>
+      </div></div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-row"><div class="q-num">6</div><div class="q-body">
+        <div class="q-text-row"><div class="q-text-main">\(f(x) = x+4\), \(g(x) = |2x+1|+3\). Solve \(f(g(x)) > 12\).</div><span class="badge badge-medium">Medium</span></div>
+        <button class="toggle-btn" onclick="tog(this)"><span class="btn-arrow">▶</span> Show Answer</button>
+        <div class="solution-panel"><div class="sol-label">Solution</div><div class="sol-body">
+          <div class="sol-steps">
+            <span class="sol-line">\(f(g(x)) = |2x+1| + 3 + 4 = |2x+1| + 7 > 12\)</span>
+            <span class="sol-line">\(|2x+1| > 5 \;\Rightarrow\; 2x+1 > 5\) or \(2x+1 < -5\)</span>
+            <span class="sol-line">\(x > 2\) &ensp; or &ensp; \(x < -3\)</span>
+          </div>
+          <div class="sol-answer">Answer: \(x < -3\) or \(x > 2\)</div>
+        </div></div>
+      </div></div>
+    </div>
+
+  </div>
+</section>
+
+<div class="section-divider"><span class="divider-ornament">✦</span></div>
+
+<!-- ══════════════════ MM1.6 POLYNOMIALS ══════════════════ -->
+<section class="section" id="s6">
+  <div class="section-badge">MM1.6</div>
+  <h2 class="section-title">Polynomials, Factor &amp; Remainder Theorems</h2>
+  <span class="section-rule"></span>
+
+  <div class="rule-box">
+    <div class="rule-box-title">Factor Theorem (if and only if)</div>
+    <p>For polynomial \(f(x)\): &ensp; \(f(a) = 0 \;\Longleftrightarrow\; (x-a)\) is a factor of \(f(x)\)</p>
+  </div>
+  <div class="rule-box">
+    <div class="rule-box-title">Remainder Theorem</div>
+    <p>When \(f(x)\) is divided by \((x-b)\), the remainder is \(f(b)\).<br>
+    When divided by \((px-q)\), the remainder is \(f(q/p)\).<br>
+    <strong>The Factor Theorem is the special case where remainder \(= 0\).</strong></p>
+  </div>
+
+  <div class="practice-block">
+    <div class="practice-header">
+      <span class="practice-tag">Practice</span>
+      <span class="practice-title">Polynomials Questions</span>
+    </div>
+
+    <div class="q-item">
+      <div class="q-row"><div class="q-num">1</div><div class="q-body">
+        <div class="q-text-row"><div class="q-text-main">\(x^3 + 4x^2 + 7x + a\) has factor \((x+2)\). Find \(a\).</div><span class="badge badge-easy">Easy</span></div>
+        <button class="toggle-btn" onclick="tog(this)"><span class="btn-arrow">▶</span> Show Answer</button>
+        <div class="solution-panel"><div class="sol-label">Solution</div><div class="sol-body">
+          <div class="sol-steps">
+            <span class="sol-line">\(f(-2) = 0\!: \quad -8 + 16 - 14 + a = 0 \;\Rightarrow\; a = 6\)</span>
+          </div>
+          <div class="sol-answer">Answer: \(a = 6\)</div>
+        </div></div>
+      </div></div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-row"><div class="q-num">2</div><div class="q-body">
+        <div class="q-text-row"><div class="q-text-main">For \(f(x)=ax^3-x^2-5x+b\): remainder 36 when divided by \((x-2)\), and 40 by \((x+2)\). Find \(a\) and \(b\).</div><span class="badge badge-medium">Medium</span></div>
+        <button class="toggle-btn" onclick="tog(this)"><span class="btn-arrow">▶</span> Show Answer</button>
+        <div class="solution-panel"><div class="sol-label">Solution</div><div class="sol-body">
+          <div class="sol-steps">
+            <span class="sol-line">\(f(2) = 8a - 4 - 10 + b = 36 \;\Rightarrow\; 8a + b = 50 \quad\cdots①\)</span>
+            <span class="sol-line">\(f(-2) = -8a - 4 + 10 + b = 40 \;\Rightarrow\; -8a + b = 34 \quad\cdots②\)</span>
+            <span class="sol-line">①\(-\)②: \(\;16a = 16 \Rightarrow a = 1\); &ensp; then \(b = 42\)</span>
+          </div>
+          <div class="sol-answer">Answer: \(a = 1,\quad b = 42\)</div>
+        </div></div>
+      </div></div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-row"><div class="q-num">3</div><div class="q-body">
+        <div class="q-text-row"><div class="q-text-main">\(f(x)=6x^2+x+7\). Remainder from \((x-a)\) equals remainder from \((x+2a)\), \(a\neq 0\). Find \(a\).</div><span class="badge badge-medium">Medium</span></div>
+        <button class="toggle-btn" onclick="tog(this)"><span class="btn-arrow">▶</span> Show Answer</button>
+        <div class="solution-panel"><div class="sol-label">Solution</div><div class="sol-body">
+          <div class="sol-steps">
+            <span class="sol-line">\(f(a) = f(-2a)\!: \quad 6a^2 + a + 7 = 24a^2 - 2a + 7\)</span>
+            <span class="sol-line">\(0 = 18a^2 - 3a = 3a(6a-1)\)</span>
+            <span class="sol-line">\(a = 0\) (rejected) &ensp; or &ensp; \(a = \tfrac{1}{6}\)</span>
+          </div>
+          <div class="sol-answer">Answer: \(a = \dfrac{1}{6}\)</div>
+        </div></div>
+      </div></div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-row"><div class="q-num">4</div><div class="q-body">
+        <div class="q-text-row"><div class="q-text-main">\(g(x)=x^3+kx^2-x+12\). Remainder when divided by \((x-4)\) is 8 times the remainder from \((x-1)\). Find \(k\).</div><span class="badge badge-medium">Medium</span></div>
+        <button class="toggle-btn" onclick="tog(this)"><span class="btn-arrow">▶</span> Show Answer</button>
+        <div class="solution-panel"><div class="sol-label">Solution</div><div class="sol-body">
+          <div class="sol-steps">
+            <span class="sol-line">\(g(4) = 64 + 16k - 4 + 12 = 72 + 16k\)</span>
+            <span class="sol-line">\(g(1) = 1 + k - 1 + 12 = k + 12\)</span>
+            <span class="sol-line">\(72 + 16k = 8(k+12) \;\Rightarrow\; 8k = 24 \;\Rightarrow\; k = 3\)</span>
+          </div>
+          <div class="sol-answer">Answer: \(k = 3\)</div>
+        </div></div>
+      </div></div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-row"><div class="q-num">5</div><div class="q-body">
+        <div class="q-text-row"><div class="q-text-main">Find the remainder when \(1 + 3x + 5x^2 + 7x^3 + \cdots + 99x^{49}\) is divided by \((x-1)\).</div><span class="badge badge-hard">Hard</span></div>
+        <button class="toggle-btn" onclick="tog(this)"><span class="btn-arrow">▶</span> Show Answer</button>
+        <div class="solution-panel"><div class="sol-label">Solution</div><div class="sol-body">
+          <p>By the Remainder Theorem, substitute \(x = 1\):</p>
+          <div class="sol-steps">
+            <span class="sol-line">\(f(1) = 1 + 3 + 5 + 7 + \cdots + 99\)</span>
+            <span class="sol-line">Sum of 50 consecutive odd numbers starting from 1: \(= 50^2 = 2500\)</span>
+          </div>
+          <div class="sol-answer">Answer: Remainder \(= 2500\)</div>
+        </div></div>
+      </div></div>
+    </div>
+
+  </div>
+</section>
+
+<div class="section-divider"><span class="divider-ornament">✦</span></div>
+
+<!-- ══════════════════ MM1.7 FUNCTIONS ══════════════════ -->
+<section class="section" id="s7">
+  <div class="section-badge">MM1.7</div>
+  <h2 class="section-title">Functions</h2>
+  <span class="section-rule"></span>
+  <p>A function maps each input to <strong>exactly one output</strong>. Three requirements: a rule, a domain, and the single-output guarantee.</p>
+
+  <div class="rule-box">
+    <div class="rule-box-title">Vertical &amp; Horizontal Line Tests</div>
+    <p><strong>Function test:</strong> Every vertical line through the graph crosses it at most once.<br>
+    <strong>One-to-one:</strong> Every horizontal line also crosses at most once.<br>
+    <strong>Many-to-one:</strong> Some horizontal line crosses more than once (e.g. \(y = x^2\)).</p>
+  </div>
+
+  <table class="disc-table">
+    <thead><tr><th>Function</th><th>Domain</th><th>Type</th><th>Key property</th></tr></thead>
+    <tbody>
+      <tr><td>\(f(x)=x^2\)</td><td>All reals</td><td>Many-to-one</td><td>\(f(2)=f(-2)=4\)</td></tr>
+      <tr><td>\(f(x)=x^3\)</td><td>All reals</td><td>One-to-one</td><td>Each output unique</td></tr>
+      <tr><td>\(f(x)=\sqrt{x}\)</td><td>\(x\geq 0\)</td><td>One-to-one</td><td>Always <strong>positive</strong> root</td></tr>
+      <tr><td>\(f(x)=|x|\)</td><td>All reals</td><td>Many-to-one</td><td>\(|-3|=|3|=3\)</td></tr>
+    </tbody>
+  </table>
+
+  <div class="practice-block">
+    <div class="practice-header">
+      <span class="practice-tag">Practice</span>
+      <span class="practice-title">Functions Questions</span>
+    </div>
+
+    <div class="q-item">
+      <div class="q-row"><div class="q-num">1</div><div class="q-body">
+        <div class="q-text-row"><div class="q-text-main">Classify each: (a) \(f(x)=x^2\) &ensp; (b) \(f(x)=\pm\sqrt{x}\) &ensp; (c) \(f(x)=x^3\) &ensp; (d) \(x^2+y^2=9\)</div><span class="badge badge-easy">Easy</span></div>
+        <button class="toggle-btn" onclick="tog(this)"><span class="btn-arrow">▶</span> Show Answer</button>
+        <div class="solution-panel"><div class="sol-label">Solution</div><div class="sol-body">
+          <div class="sol-steps">
+            <span class="sol-line">(a) \(f(x)=x^2\): Function — <strong>many-to-one</strong> (e.g. \(f(2)=f(-2)=4\))</span>
+            <span class="sol-line">(b) \(\pm\sqrt{x}\): <strong>Not a function</strong> — two outputs per input (fails vertical line test)</span>
+            <span class="sol-line">(c) \(f(x)=x^3\): Function — <strong>one-to-one</strong></span>
+            <span class="sol-line">(d) \(x^2+y^2=9\): <strong>Not a function</strong> — circle fails vertical line test</span>
+          </div>
+        </div></div>
+      </div></div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-row"><div class="q-num">2</div><div class="q-body">
+        <div class="q-text-row"><div class="q-text-main">\(f(1)=5\); \(f(n+1)=3f(n)-1\) if \(f(n)\) is odd; \(f(n+1)=\tfrac{f(n)}{2}\) if even. Find \(f(99)\) and how many \(n \in [1,50]\) satisfy \(f(n) \leq 12\).</div><span class="badge badge-hard">Hard</span></div>
+        <button class="toggle-btn" onclick="tog(this)"><span class="btn-arrow">▶</span> Show Answer</button>
+        <div class="solution-panel"><div class="sol-label">Solution</div><div class="sol-body">
+          <p>Compute the sequence to find the period:</p>
+          <div class="sol-steps">
+            <span class="sol-line">\(f(1)=5,\; f(2)=14,\; f(3)=7,\; f(4)=20,\; f(5)=10,\; f(6)=5,\ldots\)</span>
+            <span class="sol-line">Period is 5. Since \(99 = 5 \times 19 + 4\), &ensp; \(f(99) = f(4) = 20\)</span>
+            <span class="sol-line">Values \(\leq 12\) in one period: \(f(2)=14>12\) ✗, \(f(3)=7\) ✓, \(f(5)=10\) ✓, \(f(6)=5\) ✓ ... 3 out of 5 per period</span>
+            <span class="sol-line">In 50 terms: \(\tfrac{3}{5} \times 50 = 30\)</span>
+          </div>
+          <div class="sol-answer">\(f(99) = 20\); &ensp; 30 values satisfy \(f(n) \leq 12\)</div>
+        </div></div>
+      </div></div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-row"><div class="q-num">3</div><div class="q-body">
+        <div class="q-text-row"><div class="q-text-main">\(f(mn)=f(m)f(n)\) if \(mn\) is a multiple of 5, else \(f(mn)=mn\). Given \(f(25)+f(9)-f(30)=0\), find \(f(5)\).</div><span class="badge badge-hard">Hard</span></div>
+        <button class="toggle-btn" onclick="tog(this)"><span class="btn-arrow">▶</span> Show Answer</button>
+        <div class="solution-panel"><div class="sol-label">Solution</div><div class="sol-body">
+          <div class="sol-steps">
+            <span class="sol-line">\(f(25) = [f(5)]^2\), &ensp; \(f(9) = 9\), &ensp; \(f(30) = f(5)\cdot f(6) = 6f(5)\)</span>
+            <span class="sol-line">\([f(5)]^2 + 9 - 6f(5) = 0\)</span>
+            <span class="sol-line">Let \(y = f(5)\): \(y^2 - 6y + 9 = 0 \;\Rightarrow\; (y-3)^2 = 0\)</span>
+          </div>
+          <div class="sol-answer">Answer: \(f(5) = 3\)</div>
+        </div></div>
+      </div></div>
+    </div>
+
+  </div>
+</section>
+
+<div class="section-divider"><span class="divider-ornament">✦</span></div>
+
+<!-- ══════════════════ MIXED — DISCRIMINANTS ══════════════════ -->
+<section class="section" id="s_mixed">
+  <div class="section-badge">Mixed</div>
+  <h2 class="section-title">Discriminant Applications</h2>
+  <span class="section-rule"></span>
+  <p>Finding parameter ranges using the discriminant — a core TMUA/ESAT question type.</p>
+
+  <div class="practice-block">
+    <div class="practice-header">
+      <span class="practice-tag">Practice</span>
+      <span class="practice-title">Discriminant Range Questions</span>
+    </div>
+
+    <div class="q-item">
+      <div class="q-row"><div class="q-num">1</div><div class="q-body">
+        <div class="q-text-row"><div class="q-text-main">\(x^2 + 3ax + a = 0\) has two distinct real roots. Find the range of \(a\).</div><span class="badge badge-medium">Medium</span></div>
+        <button class="toggle-btn" onclick="tog(this)"><span class="btn-arrow">▶</span> Show Answer</button>
+        <div class="solution-panel"><div class="sol-label">Solution</div><div class="sol-body">
+          <div class="sol-steps">
+            <span class="sol-line">\(\Delta > 0\!: \quad 9a^2 - 4a > 0 \;\Rightarrow\; a(9a-4) > 0\)</span>
+          </div>
+          <div class="sol-answer">Answer: \(a < 0\) or \(a > \dfrac{4}{9}\)</div>
+        </div></div>
+      </div></div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-row"><div class="q-num">2</div><div class="q-body">
+        <div class="q-text-row"><div class="q-text-main">\(x^2 + (k-1)x + (k+2) = 0\) has no real roots. Find the range of \(k\).</div><span class="badge badge-medium">Medium</span></div>
+        <button class="toggle-btn" onclick="tog(this)"><span class="btn-arrow">▶</span> Show Answer</button>
+        <div class="solution-panel"><div class="sol-label">Solution</div><div class="sol-body">
+          <div class="sol-steps">
+            <span class="sol-line">\(\Delta < 0\!: \quad (k-1)^2 - 4(k+2) < 0\)</span>
+            <span class="sol-line">\(k^2 - 6k - 7 < 0 \;\Rightarrow\; (k-7)(k+1) < 0\)</span>
+          </div>
+          <div class="sol-answer">Answer: \(-1 < k < 7\)</div>
+        </div></div>
+      </div></div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-row"><div class="q-num">3</div><div class="q-body">
+        <div class="q-text-row"><div class="q-text-main">\(2x^2 + (3k-1)x + (3k^2-1) = 0\) has two different real roots. Find the range of \(k\).</div><span class="badge badge-hard">Hard</span></div>
+        <button class="toggle-btn" onclick="tog(this)"><span class="btn-arrow">▶</span> Show Answer</button>
+        <div class="solution-panel"><div class="sol-label">Solution</div><div class="sol-body">
+          <div class="sol-steps">
+            <span class="sol-line">\(\Delta > 0\!: \quad (3k-1)^2 - 8(3k^2-1) > 0\)</span>
+            <span class="sol-line">\(-15k^2 - 6k + 9 > 0 \;\Rightarrow\; 5k^2 + 2k - 3 < 0\)</span>
+            <span class="sol-line">\((5k-3)(k+1) < 0\)</span>
+          </div>
+          <div class="sol-answer">Answer: \(-1 < k < \dfrac{3}{5}\)</div>
+        </div></div>
+      </div></div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-row"><div class="q-num">4</div><div class="q-body">
+        <div class="q-text-row"><div class="q-text-main">\(kx^2 - x + (3k-1) = 0\) (\(k \neq 0\)) has no real roots. Find the range of \(k\).</div><span class="badge badge-hard">Hard</span></div>
+        <button class="toggle-btn" onclick="tog(this)"><span class="btn-arrow">▶</span> Show Answer</button>
+        <div class="solution-panel"><div class="sol-label">Solution</div><div class="sol-body">
+          <div class="sol-steps">
+            <span class="sol-line">\(\Delta < 0\!: \quad 1 - 4k(3k-1) < 0\)</span>
+            <span class="sol-line">\(12k^2 - 4k - 1 > 0 \;\Rightarrow\; (6k+1)(2k-1) > 0\)</span>
+          </div>
+          <div class="sol-answer">Answer: \(k < -\dfrac{1}{6}\) or \(k > \dfrac{1}{2}\)</div>
+        </div></div>
+      </div></div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-row"><div class="q-num">5</div><div class="q-body">
+        <div class="q-text-row"><div class="q-text-main">The roots of \(2x^2 - 7x + c = 0\) differ by 3. Find \(c\).</div><span class="badge badge-hard">Hard</span></div>
+        <button class="toggle-btn" onclick="tog(this)"><span class="btn-arrow">▶</span> Show Answer</button>
+        <div class="solution-panel"><div class="sol-label">Solution</div><div class="sol-body">
+          <p>Difference of roots \(= \dfrac{\sqrt{\Delta}}{a}\). So \(\dfrac{\sqrt{49 - 8c}}{2} = 3\):</p>
+          <div class="sol-steps">
+            <span class="sol-line">\(\sqrt{49-8c} = 6 \;\Rightarrow\; 49 - 8c = 36 \;\Rightarrow\; 8c = 13\)</span>
+          </div>
+          <div class="sol-answer">Answer: \(c = \dfrac{13}{8}\)</div>
+        </div></div>
+      </div></div>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  MM1 · Algebra &amp; Functions · TMUA/ESAT Revision Notes &nbsp;·&nbsp;
+  Content based on official TMUA/ESAT Mathematics Guide
+  <br><br>
+  © 2026 All Rights Reserved · Back Benchers Education
+</footer>
+
+<script>
+// Render KaTeX after DOM is ready
+document.addEventListener("DOMContentLoaded", function() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      { left: "\\[", right: "\\]", display: true  },
+      { left: "\\(", right: "\\)", display: false }
+    ],
+    throwOnError: false,
+    trust: true
+  });
+});
+
+// Toggle solution panels
+function tog(btn) {
+  var panel = btn.nextElementSibling;
+  var open  = panel.classList.contains('visible');
+  panel.classList.toggle('visible', !open);
+  btn.classList.toggle('open', !open);
+  btn.innerHTML = open
+    ? '<span class="btn-arrow">▶</span> Show Answer'
+    : '<span class="btn-arrow" style="transform:rotate(90deg);display:inline-block">▼</span> Hide Answer';
+}
+</script>
+</body>
+</html>
